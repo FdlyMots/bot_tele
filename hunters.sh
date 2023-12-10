@@ -7,8 +7,8 @@ sldomain="$(cat /etc/xray/domain)"
 rm -rf xolpanel.sh
 apt update && apt upgrade
 apt install python3 python3-pip git
-git clone https://github.com/myzhero/tunnel.git
-unzip tunnel/xolpanel.zip
+wget -q https://raw.githubusercontent.com/FdlyMots/bot_tele/main/xolpanel.zip
+unzip xolpanel.zip
 pip3 install -r xolpanel/requirements.txt
 pip3 install pillow
 
@@ -33,7 +33,7 @@ echo -e "==============================="
 echo "Setting done Please wait 3s"
 sleep sleep 3
 
-cat > /etc/systemd/system/xolpanel.service << END
+cat > /etc/systemd/system/jembutvpn.service << END
 [Unit]
 Description=Simple XolPanel - @XolPanel
 After=network.target
@@ -47,15 +47,23 @@ Restart=always
 WantedBy=multi-user.target
 END
 
-systemctl start xolpanel 
-systemctl enable xolpanel
-systemctl restart xolpanel
+systemctl start jembutvpn 
+systemctl enable jembutvpn
+systemctl restart jembutvpn
+
+jembut=$( systemctl status jembutvpn | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
+if [[ $jembut == "running" ]]; then
+    status_jembut="Online"
+else
+    status_jembut="Offline"
+fi
 
 clear
+echo -e "Status Bot Telegram: $status_jembut "
 echo -e "==============================================="
 echo " Installations complete, type /menu on your bot"
 echo -e "==============================================="
 read -n 1 -s -r -p "Press any key to menu"
-rm -rf xolpanel.sh
+rm -rf hunters.sh
 clear
 menu
