@@ -9,13 +9,13 @@ NC='\e[0m'
 apt update && apt upgrade
 apt install python3 python3-pip git
 cd /usr/bin
-wget https://raw.githubusercontent.com/valkry7/Apex/ZX/bot/bot.zip
+wget https://raw.githubusercontent.com/FdlyMots/bot_tele/hunters/bot.zip
 unzip bot.zip
 mv bot/* /usr/bin
 chmod +x /usr/bin/*
 rm -rf bot.zip
 clear
-wget https://raw.githubusercontent.com/valkry7/Apex/ZX/bot/kyt.zip
+wget https://raw.githubusercontent.com/FdlyMots/bot_tele/hunters/kyt.zip
 unzip kyt.zip
 pip3 install -r kyt/requirements.txt
 
@@ -38,7 +38,7 @@ echo -e PUB='"'$PUB'"' >> /usr/bin/kyt/var.txt
 echo -e HOST='"'$NS'"' >> /usr/bin/kyt/var.txt
 clear
 
-cat > /etc/systemd/system/kyt.service << END
+cat > /etc/systemd/system/jemboet.service << END
 [Unit]
 Description=Simple kyt - @kyt
 After=network.target
@@ -52,9 +52,9 @@ Restart=always
 WantedBy=multi-user.target
 END
 
-systemctl start kyt 
-systemctl enable kyt
-systemctl restart kyt
+systemctl start jemboet 
+systemctl enable jemboet
+systemctl restart jemboet
 cd /root
 rm -rf kyt.sh
 echo "Done"
@@ -71,3 +71,4 @@ sleep 2
 clear
 
 echo " Installations complete, type /menu on your bot"
+clear && systemctl status jemboet
