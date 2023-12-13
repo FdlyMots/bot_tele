@@ -3,9 +3,9 @@
 grenbo="\e[92;1m"
 NC='\e[0m'
 u="\033[1;36m"
-y="033[1;93m"
-g="033[1;92m"
-r="033[1;91m"
+y="\033[1;93m"
+g="\033[1;92m"
+r="\033[1;91m"
 
 REPO="https://raw.githubusercontent.com/FdlyMots/bot_tele/hunters/"
 NS=$( cat /etc/xray/dns )
@@ -44,9 +44,11 @@ echo -e PUB='"'$PUB'"' >> /usr/bin/kyt/var.txt
 echo -e HOST='"'$NS'"' >> /usr/bin/kyt/var.txt
 clear
 
-cat > /etc/systemd/system/jemboet.service << END
+rm -fr /etc/systemd/system/fvbot.service
+
+cat > /etc/systemd/system/fvbot.service << END
 [Unit]
-Description=Simple jemboet - @fv_stores
+Description=Simple fvbot - @fv_stores
 After=network.target
 
 [Service]
@@ -58,14 +60,14 @@ Restart=always
 WantedBy=multi-user.target
 END
 
-systemctl start jemboet 
-systemctl enable jemboet
-systemctl restart jemboet
+systemctl start fvbot 
+systemctl enable fvbot
+systemctl restart fvbot
 cd /root
 rm -rf bot.sh
 
 # // STATUS SERVICE BOT
-bot_service=$(systemctl status jemboet | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+bot_service=$(systemctl status fvbot | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 if [[ $bot_service == "running" ]]; then 
    sts_bot="${g}Online${NC}"
 else
