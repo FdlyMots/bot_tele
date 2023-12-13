@@ -75,13 +75,14 @@ else
 fi
 
 clear
-echo -e "  ${y}Your Data BOT Info"
-echo -e " ${u}┌──────────────────────────────┐${NC}"
-echo -e " ${u}│$r Status BOT ${y}=$NC $sts_bot "
-echo -e " ${u}│$r Token BOT  ${y}=$NC $bottoken "
-echo -e " ${u}│$r Admin ID   ${y}=$NC $admin "
-echo -e " ${u}│$r Domain VPS ${y}=$NC $domain "
-echo -e " ${u}└──────────────────────────────┘${NC}"
+neofetch
+echo -e "  ${y} Your Data BOT Info"
+echo -e "  ${u}┌───────────────────────────────────┐${NC}"
+echo -e "  ${u}│$r Status BOT ${y}=$NC $sts_bot "
+echo -e "  ${u}│$r Token BOT  ${y}=$NC $bottoken "
+echo -e "  ${u}│$r Admin ID   ${y}=$NC $admin "
+echo -e "  ${u}│$r Domain VPS ${y}=$NC $domain "
+echo -e "  ${u}└───────────────────────────────────┘${NC}"
 echo -e ""
 read -p "  Press [ Enter ] to back on menu"
 menu
