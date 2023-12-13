@@ -1,36 +1,42 @@
 #!/bin/bash
-NS=$( cat /etc/xray/dns )
-PUB=$( cat /etc/slowdns/server.pub )
-domain=$(cat /etc/xray/domain)
 #color
 grenbo="\e[92;1m"
 NC='\e[0m'
+u="\033[1;36m"
+y="033[1;93m"
+g="033[1;92m"
+r="033[1;91m"
+
+REPO="https://raw.githubusercontent.com/FdlyMots/bot_tele/hunters/"
+NS=$( cat /etc/xray/dns )
+PUB=$( cat /etc/slowdns/server.pub )
+domain=$(cat /etc/xray/domain)
 #install
 apt update && apt upgrade
 apt install python3 python3-pip git
 cd /usr/bin
-wget https://raw.githubusercontent.com/FdlyMots/bot_tele/hunters/bot.zip
+wget -q ${REPO}bot.zip
 unzip bot.zip
 mv bot/* /usr/bin
 chmod +x /usr/bin/*
 rm -rf bot.zip
 clear
-wget https://raw.githubusercontent.com/FdlyMots/bot_tele/hunters/kyt.zip
+wget -q ${REPO}kyt.zip
 unzip kyt.zip
 pip3 install -r kyt/requirements.txt
 
 clear
 echo ""
-echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e " \e[1;97;101m          ADD BOT PANEL          \e[0m"
-echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "$u ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e " \e[1;97;101m             ADD BOT PANEL              \e[0m"
+echo -e "$u ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${grenbo}Tutorial Creat Bot and ID Telegram${NC}"
 echo -e "${grenbo}[*] Creat Bot and Token Bot : @BotFather${NC}"
 echo -e "${grenbo}[*] Info Id Telegram : @MissRose_bot , perintah /info${NC}"
-echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
 read -e -p "[*] Input your Bot Token : " bottoken
-read -e -p "[*] Input Your Id Telegram :" admin
+read -e -p "[*] Input Your Id Telegram : " admin
 echo -e BOT_TOKEN='"'$bottoken'"' >> /usr/bin/kyt/var.txt
 echo -e ADMIN='"'$admin'"' >> /usr/bin/kyt/var.txt
 echo -e DOMAIN='"'$domain'"' >> /usr/bin/kyt/var.txt
@@ -40,7 +46,7 @@ clear
 
 cat > /etc/systemd/system/jemboet.service << END
 [Unit]
-Description=Simple kyt - @kyt
+Description=Simple jemboet - @fv_stores
 After=network.target
 
 [Service]
@@ -56,19 +62,24 @@ systemctl start jemboet
 systemctl enable jemboet
 systemctl restart jemboet
 cd /root
-rm -rf kyt.sh
-echo "Done"
-echo "Your Data Bot"
-echo -e "==============================="
-echo "Token Bot         : $bottoken"
-echo "Admin          : $admin"
-echo "Domain        : $domain"
-echo "Pub            : $PUB"
-echo "Host           : $NS"
-echo -e "==============================="
-echo "Setting done"
-sleep 2
-clear
+rm -rf bot.sh
 
-echo " Installations complete, type /menu on your bot"
-clear && systemctl status jemboet
+# // STATUS SERVICE BOT
+bot_service=$(systemctl status jemboet | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+if [[ $bot_service == "running" ]]; then 
+   sts_bot="${g}Online${NC}"
+else
+   sts_bot="${r}Offline${NC}"
+fi
+
+clear
+echo -e "  ${y}Your Data BOT Info"
+echo -e " ${u}┌──────────────────────────────┐${NC}"
+echo -e " ${u}│$r Status BOT ${y}=$NC $sts_bot "
+echo -e " ${u}│$r Token BOT  ${y}=$NC $bottoken "
+echo -e " ${u}│$r Admin ID   ${y}=$NC $admin "
+echo -e " ${u}│$r Domain VPS ${y}=$NC $domain "
+echo -e " ${u}└──────────────────────────────┘${NC}"
+echo -e ""
+read -p "  Press [ Enter ] to back on menu"
+menu
