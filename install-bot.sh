@@ -44,11 +44,11 @@ echo -e PUB='"'$PUB'"' >> /usr/bin/kyt/var.txt
 echo -e HOST='"'$NS'"' >> /usr/bin/kyt/var.txt
 clear
 
-rm -fr /etc/systemd/system/fvbot.service
+#rm -fr /etc/systemd/system/fvbot.service
 
-cat > /etc/systemd/system/fvbot.service << END
+cat > /etc/systemd/system/fvpanel.service << END
 [Unit]
-Description=Simple fvbot - @fv_stores
+Description=Simple fvpanel - @fv_stores
 After=network.target
 
 [Service]
@@ -60,14 +60,14 @@ Restart=always
 WantedBy=multi-user.target
 END
 
-systemctl start fvbot 
-systemctl enable fvbot
-systemctl restart fvbot
+systemctl start fvpanel 
+systemctl enable fvpanel
+systemctl restart fvpanel
 cd /root
-rm -rf bot.sh
+rm -fr install-bot.sh
 
 # // STATUS SERVICE BOT
-bot_service=$(systemctl status fvbot | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+bot_service=$(systemctl status fvpanel | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 if [[ $bot_service == "running" ]]; then 
    sts_bot="${g}Online${NC}"
 else
@@ -76,7 +76,7 @@ fi
 
 clear
 neofetch
-echo -e "  ${y} Your Data BOT Info"
+echo -e "  ${y}           Your Data BOT Info"
 echo -e "  ${u}┌───────────────────────────────────┐${NC}"
 echo -e "  ${u}│$r Status BOT ${y}=$NC $sts_bot "
 echo -e "  ${u}│$r Token BOT  ${y}=$NC $bottoken "
